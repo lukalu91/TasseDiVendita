@@ -17,6 +17,8 @@ public abstract class ATassabile {
 	
 	public abstract BigDecimal getValore();
 
+	public abstract int getQuantita();
+
 	public BigDecimal getTassa() {
 		int taxPerc = STANDARD_TAX;
 		if(isEsentasse()) {
@@ -47,8 +49,12 @@ public abstract class ATassabile {
 			if(val >= 5) {
 				decimalVal++;
 			}
-			
-			decimal = ""+decimalVal;
+			if(decimal.length() == (""+decimalVal).length()) {
+				nonDecimal = ""+(Integer.parseInt(nonDecimal)+1);
+				decimal = (""+decimalVal).substring(1);
+			}else {
+				decimal = ""+decimalVal;
+			}
 		}
 		
 //		System.out.println("Decimal: " + decimal);	

@@ -9,17 +9,26 @@ import java.math.BigDecimal;
  */
 public class Bene extends ATassabile{
 
+	private int quantita;
 	private String descrizione;
 	private BigDecimal valore;
 	private boolean importata;
 	private boolean esentasse;
 	
-	public Bene(String descrizione, BigDecimal valore, boolean importata, boolean esentasse) {
+	public Bene(int quantita, String descrizione, BigDecimal valore, boolean importata, boolean esentasse) {
 		super();
+		this.quantita = quantita;
 		this.descrizione = descrizione;
 		this.valore = valore;
 		this.importata = importata;
 		this.esentasse = esentasse;
+	}
+	
+	public int getQuantita() {
+		return quantita;
+	}
+	public void setQuantita(int quantita) {
+		this.quantita = quantita;
 	}
 	public String getDescrizione() {
 		return descrizione;
@@ -28,7 +37,7 @@ public class Bene extends ATassabile{
 		this.descrizione = descrizione;
 	}
 	public BigDecimal getValore() {
-		return valore;
+		return valore.multiply(new BigDecimal(this.quantita));
 	}
 	public void setValore(BigDecimal valore) {
 		this.valore = valore;
@@ -45,11 +54,16 @@ public class Bene extends ATassabile{
 	public void setEsentasse(boolean esentasse) {
 		this.esentasse = esentasse;
 	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Bene [descrizione=");
+		builder.append("Bene [quantita=");
+		builder.append(quantita);
+		builder.append(", descrizione=");
 		builder.append(descrizione);
+		builder.append(", valore=");
+		builder.append(valore);
 		builder.append(", importata=");
 		builder.append(importata);
 		builder.append(", esentasse=");
@@ -57,5 +71,4 @@ public class Bene extends ATassabile{
 		builder.append("]");
 		return builder.toString();
 	}
-	
 }
