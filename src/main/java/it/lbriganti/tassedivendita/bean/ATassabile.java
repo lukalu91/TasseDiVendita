@@ -21,8 +21,12 @@ public abstract class ATassabile {
 
 	public BigDecimal getTassa() {
 		int taxPerc = STANDARD_TAX;
-		if(isEsentasse()) {
+		if(isEsentasse() && !isImportata()) {
 			return new BigDecimal("0");
+		}
+		
+		if(isEsentasse()) {
+			taxPerc = 0;
 		}
 		
 		if(isImportata()) {
@@ -40,10 +44,8 @@ public abstract class ATassabile {
 		while (decimal.length()>2) {
 			//prendo l ultimo valore
 			int val = Integer.parseInt(""+decimal.charAt(decimal.length()-1));
-//			System.out.println("valore: " + val);	
 
 			int decimalVal = Integer.parseInt(decimal.substring(0, decimal.length()-1));
-//			System.out.println("decimalVal: " + decimalVal);	
 
 			//arrotondo
 			if(val >= 5) {
@@ -57,8 +59,18 @@ public abstract class ATassabile {
 			}
 		}
 		
-//		System.out.println("Decimal: " + decimal);	
+		//arrotondo parte finale
+		int val = Integer.parseInt(""+decimal.charAt(decimal.length()-1));
+		int val1 = Integer.parseInt(""+decimal.charAt(decimal.length()-2));
+
+		if(val > 5) {
+			val = 0;
+			val1++;
+		}else if(val > 0){
+			val = 5;
+		}
 		
+		decimal = val1+""+val;
 		return new BigDecimal(nonDecimal+"."+decimal);
 	}
 }

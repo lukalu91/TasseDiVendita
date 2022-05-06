@@ -18,8 +18,9 @@ public class Scontrino {
 	public Scontrino(List<Bene> beniacquistati) {
 		super();
 		this.beniacquistati = beniacquistati;
-		this.spesaTotale = this.beniacquistati.stream().map(p -> p.getValore()).reduce(BigDecimal.ZERO, (b1, b2) -> b1.add(b2));
 		this.tasseTotali = this.beniacquistati.stream().map(p -> p.getTassa()).reduce(BigDecimal.ZERO, (b1, b2) -> b1.add(b2));
+		this.spesaTotale = this.beniacquistati.stream().map(p -> p.getValore()).reduce(BigDecimal.ZERO, (b1, b2) -> b1.add(b2));
+		this.spesaTotale = this.spesaTotale.add(this.tasseTotali);
 	}
 
 	public List<Bene> getBeniacquistati() {
